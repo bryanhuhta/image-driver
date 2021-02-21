@@ -5,11 +5,29 @@ import time
 
 
 class Metadata(NamedTuple):
-    id: Optional[int] = None
-    number: Optional[int] = None
-    group: Optional[int] = None
-    min_image_index: Optional[int] = None
-    max_image_index: Optional[int] = None
+    id:                         Optional[int] = None
+    number:                     Optional[int] = None
+    group:                      Optional[int] = None
+    min_image_index:            Optional[int] = None
+    max_image_index:            Optional[int] = None
+    grayscale:                  Optional[int] = None
+    grayscale_rows:             Optional[int] = None
+    grayscale_cols:             Optional[int] = None
+    is_used:                    Optional[int] = None
+    is_used_rows:               Optional[int] = None
+    is_used_cols:               Optional[int] = None
+    is_nobirdlikely:            Optional[int] = None
+    is_nobirdlikely_rows:       Optional[int] = None
+    is_nobirdlikely_cols:       Optional[int] = None
+    is_bird:                    Optional[int] = None
+    is_bird_rows:               Optional[int] = None
+    is_bird_cols:               Optional[int] = None
+    special_name:               Optional[int] = None
+    special_name_rows:          Optional[int] = None
+    special_name_cols:          Optional[int] = None
+    is_present:                 Optional[int] = None
+    is_present_rows:            Optional[int] = None
+    is_present_cols:            Optional[int] = None
 
 
 class Database:
@@ -22,11 +40,29 @@ class Database:
         c = self._conn.cursor()
         c.execute('''
             CREATE TABLE IF NOT EXISTS metadata (
-                id              INTEGER PRIMARY KEY NOT NULL,
-                number          INTEGER NOT NULL,
-                "group"         INTEGER NOT NULL,
-                min_image_index INTEGER NOT NULL,
-                max_image_index INTEGER NOT NULL
+                id                       INTEGER PRIMARY KEY NOT NULL,
+                number                   INTEGER NOT NULL,
+                "group"                  INTEGER NOT NULL,
+                min_image_index          INTEGER NOT NULL,
+                max_image_index          INTEGER NOT NULL,
+                grayscale                BLOB NOT NULL,
+                grayscale_rows           INTEGER NOT NULL,
+                grayscale_cols           INTEGER NOT NULL,
+                is_used                  BLOB NOT NULL,
+                is_used_rows             INTEGER NOT NULL,
+                is_used_cols             INTEGER NOT NULL,
+                is_nobirdlikely          BLOB NOT NULL,
+                is_nobirdlikely_rows     INTEGER NOT NULL,
+                is_nobirdlikely_cols     INTEGER NOT NULL,
+                is_bird                  BLOB NOT NULL,
+                is_bird_rows             INTEGER NOT NULL,
+                is_bird_cols             INTEGER NOT NULL,
+                special_name             BLOB NOT NULL,
+                special_name_rows        INTEGER NOT NULL,
+                special_name_cols        INTEGER NOT NULL,
+                is_present               BLOB NOT NULL,
+                is_present_rows          INTEGER NOT NULL,
+                is_present_cols          INTEGER NOT NULL
             )
         ''')
         self._conn.commit()
@@ -44,8 +80,26 @@ class Database:
                 number,
                 "group",
                 min_image_index,
-                max_image_index
-            ) VALUES (?, ?, ?, ?)
+                max_image_index,
+                grayscale,
+                grayscale_rows,
+                grayscale_cols,
+                is_used,
+                is_used_rows,
+                is_used_cols,
+                is_nobirdlikely,
+                is_nobirdlikely_rows,
+                is_nobirdlikely_cols,
+                is_bird,
+                is_bird_rows,
+                is_bird_cols,
+                special_name,
+                special_name_rows,
+                special_name_cols,
+                is_present,
+                is_present_rows,
+                is_present_cols
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', m[1:])
         return self.get(c.lastrowid)
 
@@ -57,7 +111,25 @@ class Database:
                 number,
                 "group",
                 min_image_index,
-                max_image_index
+                max_image_index,
+                grayscale,
+                grayscale_rows,
+                grayscale_cols,
+                is_used,
+                is_used_rows,
+                is_used_cols,
+                is_nobirdlikely,
+                is_nobirdlikely_rows,
+                is_nobirdlikely_cols,
+                is_bird,
+                is_bird_rows,
+                is_bird_cols,
+                special_name,
+                special_name_rows,
+                special_name_cols,
+                is_present,
+                is_present_rows,
+                is_present_cols
             FROM
                 metadata
             WHERE

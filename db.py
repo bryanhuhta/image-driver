@@ -2,30 +2,32 @@ from typing import NamedTuple, Optional
 import random
 import sqlite3
 import time
+import numpy as np
 
 
 class Metadata(NamedTuple):
     id:                         Optional[int] = None
     number:                     Optional[int] = None
+    date:                       Optional[str] = None
     group:                      Optional[int] = None
     min_image_index:            Optional[int] = None
     max_image_index:            Optional[int] = None
-    grayscale:                  Optional[int] = None
+    grayscale:                  Optional[np] = None
     grayscale_rows:             Optional[int] = None
     grayscale_cols:             Optional[int] = None
-    is_used:                    Optional[int] = None
+    is_used:                    Optional[np] = None
     is_used_rows:               Optional[int] = None
     is_used_cols:               Optional[int] = None
-    is_nobirdlikely:            Optional[int] = None
+    is_nobirdlikely:            Optional[np] = None
     is_nobirdlikely_rows:       Optional[int] = None
     is_nobirdlikely_cols:       Optional[int] = None
-    is_bird:                    Optional[int] = None
+    is_bird:                    Optional[np] = None
     is_bird_rows:               Optional[int] = None
     is_bird_cols:               Optional[int] = None
-    special_name:               Optional[int] = None
+    special_name:               Optional[np] = None
     special_name_rows:          Optional[int] = None
     special_name_cols:          Optional[int] = None
-    is_present:                 Optional[int] = None
+    is_present:                 Optional[np] = None
     is_present_rows:            Optional[int] = None
     is_present_cols:            Optional[int] = None
 
@@ -42,6 +44,7 @@ class Database:
             CREATE TABLE IF NOT EXISTS metadata (
                 id                       INTEGER PRIMARY KEY NOT NULL,
                 number                   INTEGER NOT NULL,
+                date                     STRING NOT NULL,
                 "group"                  INTEGER NOT NULL,
                 min_image_index          INTEGER NOT NULL,
                 max_image_index          INTEGER NOT NULL,
@@ -79,6 +82,7 @@ class Database:
             INSERT INTO metadata (
                 number,
                 "group",
+                datte,
                 min_image_index,
                 max_image_index,
                 grayscale,
@@ -99,7 +103,7 @@ class Database:
                 is_present,
                 is_present_rows,
                 is_present_cols
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', m[1:])
         return self.get(c.lastrowid)
 
@@ -109,6 +113,7 @@ class Database:
             SELECT
                 id,
                 number,
+                date,
                 "group",
                 min_image_index,
                 max_image_index,

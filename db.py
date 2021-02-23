@@ -11,8 +11,8 @@ class Metadata(NamedTuple):
     date:                       Optional[str] = None
     group:                      Optional[int] = None
     special_chars:              Optional[str] = None
-    min_image_index:            Optional[int] = None
-    max_image_index:            Optional[int] = None
+    image_index:                Optional[int] = None
+    subimage_index:             Optional[int] = None
     grayscale:                  Optional[bool] = None
     is_used:                    Optional[bool] = None
     is_nobirdlikely:            Optional[bool] = None
@@ -36,8 +36,8 @@ class Database:
                 date                    TEXT NOT NULL,
                 "group"                 INTEGER NOT NULL,
                 special_chars           TEXT NOT NULL,
-                min_image_index         INTEGER NOT NULL,
-                max_image_index         INTEGER NOT NULL,
+                image_index             INTEGER NOT NULL,
+                subimage_index          INTEGER NOT NULL,
                 grayscale               INTEGER NOT NULL,
                 is_used                 INTEGER NOT NULL,
                 is_nobirdlikely         INTEGER NOT NULL,
@@ -62,8 +62,8 @@ class Database:
                 date,
                 "group",
                 special_chars,
-                min_image_index,
-                max_image_index,
+                image_index,
+                subimage_index,
                 grayscale,
                 is_used,
                 is_nobirdlikely,
@@ -83,8 +83,8 @@ class Database:
                 date,
                 "group",
                 special_chars,
-                min_image_index,
-                max_image_index,
+                image_index,
+                subimage_index,
                 grayscale,
                 is_used,
                 is_nobirdlikely,
